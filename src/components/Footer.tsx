@@ -6,7 +6,7 @@ const Footer = () => {
             DJ Nosework
         </span>
         <span className="text-white font-bold tracking-tight flex gap-4">
-        <span>&copy; 2021 DJ Nosework. All rights reserved.</span>
+        <span>&copy; 2021 JGR Consulting. All rights reserved.</span>
         </span>
     </div>
   </div>
