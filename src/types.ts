@@ -23,3 +23,12 @@ export type MyEvent = {
     imageUrls: string[];
     lastUpdated: string;
 };
+
+export type EventSearchResponse = {
+    data: MyEvent[];
+    pagination: {
+        total: number;
+        page: number;
+        pages: number;
+    };
+};
