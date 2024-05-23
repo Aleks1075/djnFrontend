@@ -14,15 +14,17 @@ const formSchema = z.object({
     phone: z.string().min(8, "Telefonnummer er påkrævet").max(255, "Telefonnummer er for langt"),
 });
 
-type UserFormData = z.infer<typeof formSchema>;
+export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
     currentUser: User;
   onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
+  title?: string;
+  buttonText?: string;
 }
 
-const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
+const UserProfileForm = ({ onSave, isLoading, currentUser, title = "Din Profil", buttonText = "Gem" }: Props) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: currentUser,
@@ -36,7 +38,7 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSave)} className="space-y-4 bg-gray-50 rounded-lg md:p-10">
             <div>
-                <h2 className="text-2xl font-bold">Din Profil</h2>
+                <h2 className="text-2xl font-bold">{title}</h2>
                 <FormDescription>
                     Her kan du se og ændre dine oplysninger
                 </FormDescription>
@@ -72,7 +74,7 @@ const UserProfileForm = ({ onSave, isLoading, currentUser }: Props) => {
             {isLoading ? (
             <LoadingButton /> 
             ) : ( 
-            <Button type="submit" className="bg-yellow-500">Gem</Button>
+            <Button type="submit" className="bg-yellow-500">{buttonText}</Button>
             )}
         </form>
     </Form>

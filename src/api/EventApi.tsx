@@ -1,8 +1,28 @@
 import { SearchState } from "@/pages/SearchPage";
-import { EventSearchResponse } from "@/types";
+import { EventSearchResponse, MyEvent } from "@/types";
 import { useQuery } from "react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
+export const useGetEvent = (eventId?: string) => {
+  const getEventByIdRequest = async (): Promise<MyEvent> => {
+    const response = await fetch(`${API_BASE_URL}/api/event/${eventId}`);
+
+    if (!response.ok) {
+      throw new Error("Failed to get event");
+    }
+
+    return response.json();
+  };
+
+  const { data: event, isLoading } = useQuery(
+    "fetchEvent",
+    getEventByIdRequest,
+    { enabled: !!eventId }
+  );
+
+  return { event, isLoading };
+};
 
 export const useSearchEvents = (searchState: SearchState, city?: string) => {
     const createSearchRequest = async (): Promise<EventSearchResponse> => {
