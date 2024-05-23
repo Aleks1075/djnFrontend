@@ -11,7 +11,7 @@ type Props = {
   removeFromCart: (cartItem: CartItem) => void;
 }
 
-const OrderSummary = ({ event, cartItems, removeFromCart }: Props) => {
+const OrderSummary = ({ cartItems, removeFromCart }: Props) => {
     const getTotalCost = () => {
     const totalInDKK = cartItems.reduce((total, cartItem) =>
         total + cartItem.price * cartItem.quantity, 0
