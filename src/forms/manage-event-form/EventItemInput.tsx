@@ -11,10 +11,10 @@ import { useFormContext } from "react-hook-form";
 
 type Props = {
   index: number;
-  removeMenuItem: () => void;
+  removeEventItem: () => void;
 };
 
-const EventItemInput = ({ index, removeMenuItem }: Props) => {
+const EventItemInput = ({ index, removeEventItem }: Props) => {
   const { control } = useFormContext();
 
   return (
@@ -25,7 +25,7 @@ const EventItemInput = ({ index, removeMenuItem }: Props) => {
         render={({ field }) => (
           <FormItem>
             <FormLabel className="flex items-center gap-1">
-            Navn på begivenhed <FormMessage />
+              Navn på begivenhed <FormMessage />
             </FormLabel>
             <FormControl>
               <Input
@@ -43,7 +43,7 @@ const EventItemInput = ({ index, removeMenuItem }: Props) => {
         render={({ field }) => (
           <FormItem>
             <FormLabel className="flex items-center gap-1">
-            Pris <FormMessage />
+              Pris <FormMessage />
             </FormLabel>
             <FormControl>
               <Input {...field} placeholder="0.00" className="bg-white" />
@@ -53,7 +53,7 @@ const EventItemInput = ({ index, removeMenuItem }: Props) => {
       />
       <Button
         type="button"
-        onClick={removeMenuItem}
+        onClick={removeEventItem}
         className="bg-red-500 max-h-fit"
       >
         Fjern

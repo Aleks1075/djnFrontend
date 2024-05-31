@@ -17,9 +17,9 @@ const sortOptions = [
     value: "type",
   },
   {
-    label: "Antal deltagere (mange til få)",
+    label: "Antal deltagere (stigende)",
     value: "numberOfParticipants",
-  }
+  },
 ];
 
 const SortOptionsDropdown = ({ onChange, sortOption }: Props) => {
@@ -32,10 +32,10 @@ const SortOptionsDropdown = ({ onChange, sortOption }: Props) => {
       <DropdownMenuTrigger className="cursor-pointer">
         <Button variant="outline" className="w-full">
           Sorter efter: {selectedSortLabel}
-          </Button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-      {sortOptions.map((option) => (
+        {sortOptions.map((option) => (
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={() => onChange(option.value)}

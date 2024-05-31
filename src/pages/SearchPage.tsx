@@ -13,18 +13,18 @@ export type SearchState = {
   page: number;
   selectedFacilties: string[];
   sortOption: string;
-}
+};
 
 const SearchPage = () => {
   const { city } = useParams();
   const [searchState, setSearchState] = useState<SearchState>({
-     searchQuery: "" ,
-      page: 1,
-      selectedFacilties: [],
-      sortOption: "price",
-    });
+    searchQuery: "",
+    page: 1,
+    selectedFacilties: [],
+    sortOption: "price",
+  });
 
-    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+  const [isExpanded, setIsExpanded] = useState<boolean>(false);
 
   const { results, isLoading } = useSearchEvents(searchState, city);
 
@@ -67,41 +67,52 @@ const SearchPage = () => {
     }));
   };
 
-  if(isLoading) {
+  if (isLoading) {
     return <span>Indlæser...</span>;
   }
 
-  if(!results?.data || !city) {
+  if (!results?.data || !city) {
     return <span>Ingen resultater fundet</span>;
   }
 
   return (
-  <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
-    <div id="facilities-list">
-      <FacilitiesFilter selectedFacilities={searchState.selectedFacilties} onChange={setSelectedFacilities} 
-      isExpanded={isExpanded}
-      onExpandedClick={() => setIsExpanded((prevIsExpanded) => !prevIsExpanded)}
-      />
-    </div>
-    <div id="main-content" className="flex flex-col gap-5">
-      <SearchBar searchQuery={searchState.searchQuery} onSubmit={setSearchQuery} placeholder="Søg efter type af event" onReset={resetSearch} />
-      <div className="flex justify-between flex-col gap-3 lg:flex-row">
-      <SearchResultsInfo total={results.pagination.total} city={city} />
-      <SortOptionsDropdown
+    <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5">
+      <div id="facilities-list">
+        <FacilitiesFilter
+          selectedFacilities={searchState.selectedFacilties}
+          onChange={setSelectedFacilities}
+          isExpanded={isExpanded}
+          onExpandedClick={() =>
+            setIsExpanded((prevIsExpanded) => !prevIsExpanded)
+          }
+        />
+      </div>
+      <div id="main-content" className="flex flex-col gap-5">
+        <SearchBar
+          searchQuery={searchState.searchQuery}
+          onSubmit={setSearchQuery}
+          placeholder="Søg efter type af event"
+          onReset={resetSearch}
+        />
+        <div className="flex justify-between flex-col gap-3 lg:flex-row">
+          <SearchResultsInfo total={results.pagination.total} city={city} />
+          <SortOptionsDropdown
             sortOption={searchState.sortOption}
             onChange={(value) => setSortOption(value)}
           />
         </div>
 
-      {results.data.map((event) => (
-        <SearchResultsCard event={event} />
-      ))}
-      <PaginationSelector page={results.pagination.page}
-      pages={results.pagination.pages}
-      onPageChange={setPage}/>
+        {results.data.map((event) => (
+          <SearchResultsCard event={event} />
+        ))}
+        <PaginationSelector
+          page={results.pagination.page}
+          pages={results.pagination.pages}
+          onPageChange={setPage}
+        />
+      </div>
     </div>
-  </div>
-    );
+  );
 };
 
 export default SearchPage;

@@ -12,21 +12,22 @@ import { useFormContext } from "react-hook-form";
 const ImageSection = () => {
   const { control, watch } = useFormContext();
 
-  const existingImageUrl = watch("imageUrls")
+  const existingImageUrl = watch("imageUrls");
 
   return (
     <div className="space-y-2">
       <div>
         <h2 className="text-2xl font-bold">Billede</h2>
-        <FormDescription>
-        Tilføj billede til begivenheden
-        </FormDescription>
+        <FormDescription>Tilføj billede til begivenheden</FormDescription>
       </div>
 
       <div className="flex flex-col gap-8 md:w-[50%]">
         {existingImageUrl && (
-          <AspectRatio ratio={16/9}>
-            <img src={existingImageUrl} className="rounded-md object-cover h-full w-full" />
+          <AspectRatio ratio={16 / 9}>
+            <img
+              src={existingImageUrl}
+              className="rounded-md object-cover h-full w-full"
+            />
           </AspectRatio>
         )}
         <FormField

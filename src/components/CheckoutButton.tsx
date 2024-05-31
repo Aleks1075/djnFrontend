@@ -3,7 +3,9 @@ import { useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import LoadingButton from "./LoadingButton";
 import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
-import UserProfileForm, { UserFormData } from "@/forms/user-profile-form/UserProfileForm";
+import UserProfileForm, {
+  UserFormData,
+} from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
 
 type Props = {
@@ -13,7 +15,11 @@ type Props = {
 };
 
 const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
-  const { isAuthenticated, isLoading: isAuthLoading, loginWithRedirect } = useAuth0();
+  const {
+    isAuthenticated,
+    isLoading: isAuthLoading,
+    loginWithRedirect,
+  } = useAuth0();
 
   const { pathname } = useLocation();
 
@@ -35,26 +41,28 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
     );
   }
 
-  if(isAuthLoading || !currentUser || isLoading) {
+  if (isAuthLoading || !currentUser || isLoading) {
     return <LoadingButton />;
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={disabled} className="bg-yellow-500 flex-1">Gå til betaling</Button>
+        <Button disabled={disabled} className="bg-yellow-500 flex-1">
+          Gå til betaling
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[425px] md:min-w-[700px] bg-gray-50">
-        <UserProfileForm 
-        currentUser={currentUser} 
-        onSave={onCheckout} 
-        isLoading={isGetUserLoading}
-        title="Bekræft dine oplysninger"
-        buttonText="Gå til betaling"
+        <UserProfileForm
+          currentUser={currentUser}
+          onSave={onCheckout}
+          isLoading={isGetUserLoading}
+          title="Bekræft dine oplysninger"
+          buttonText="Gå til betaling"
         />
       </DialogContent>
     </Dialog>
-  )
+  );
 };
 
 export default CheckoutButton;

@@ -25,29 +25,29 @@ export const useGetEvent = (eventId?: string) => {
 };
 
 export const useSearchEvents = (searchState: SearchState, city?: string) => {
-    const createSearchRequest = async (): Promise<EventSearchResponse> => {
-      const params = new URLSearchParams();
-      params.set("searchQuery", searchState.searchQuery);
-      params.set("page", searchState.page.toString());
-      params.set("selectedFacilities", searchState.selectedFacilties.join(","));
-      params.set("sortOption", searchState.sortOption);
+  const createSearchRequest = async (): Promise<EventSearchResponse> => {
+    const params = new URLSearchParams();
+    params.set("searchQuery", searchState.searchQuery);
+    params.set("page", searchState.page.toString());
+    params.set("selectedFacilities", searchState.selectedFacilties.join(","));
+    params.set("sortOption", searchState.sortOption);
 
-        const response = await fetch(
-            `${API_BASE_URL}/api/event/search/${city}?${params.toString()}`
-          );
-      
-          if (!response.ok) {
-            throw new Error("Failed to get event");
-          }
-      
-          return response.json();
-        };
+    const response = await fetch(
+      `${API_BASE_URL}/api/event/search/${city}?${params.toString()}`
+    );
 
-        const { data: results, isLoading } = useQuery(
-            ["searchEvents", searchState],
-            createSearchRequest,
-            { enabled: !!city }
-            );
+    if (!response.ok) {
+      throw new Error("Failed to get event");
+    }
 
-            return { results, isLoading };
+    return response.json();
+  };
+
+  const { data: results, isLoading } = useQuery(
+    ["searchEvents", searchState],
+    createSearchRequest,
+    { enabled: !!city }
+  );
+
+  return { results, isLoading };
 };
